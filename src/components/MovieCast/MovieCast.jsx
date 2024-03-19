@@ -1,39 +1,52 @@
 import { useParams } from "react-router";
 import { requestMovieCredits } from "../../services/api.js";
 import { useEffect, useState } from "react";
+import Loader from "../Loader/Loader.jsx";
+import ErrorMessage from "../ErrorMessage/ErrorMessage.jsx";
 
 const MovieCast = () => {
-  const { filmId } = useParams();
   const [casts, setCast] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
+  const { filmId } = useParams();
 
   useEffect(() => {
     const getData = async () => {
-      const data = await requestMovieCredits(filmId);
-      setCast(data);
+      try {
+        setIsLoading(true);
+        const data = await requestMovieCredits(filmId);
+        setCast(data);
+      } catch {
+        setIsError(true);
+      } finally {
+        setIsLoading(false);
+      }
     };
     getData();
   }, [filmId]);
 
-  if (casts === null) {
-    return <div>Loading...</div>;
-  }
-
-  const profilePhotos = casts.cast.map(
-    (cast) => `https://image.tmdb.org/t/p/w500/${cast.profile_path}`
-  );
-
   return (
-    <ul>
-      {casts.cast.map((cast, index) => {
-        return (
-          <li key={cast.cast_id}>
-            <img src={profilePhotos[index]} alt="" />
-            <p>Original name: {cast.original_name}</p>
-            <p>Character: {cast.character}</p>
-          </li>
-        );
-      })}
-    </ul>
+    <>
+      {isError && <ErrorMessage />}
+      {isLoading && <Loader />}
+      {casts && (
+        <ul>
+          {casts.cast.map((cast) => {
+            return (
+              <li key={cast.cast_id}>
+                <img
+                  src={`https://image.tmdb.org/t/p/w500/${cast.profile_path}`}
+                  alt=""
+                  key={cast.id}
+                />
+                <p>Original name: {cast.original_name}</p>
+                <p>Character: {cast.character}</p>
+              </li>
+            );
+          })}
+        </ul>
+      )}
+    </>
   );
 };
 

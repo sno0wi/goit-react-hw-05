@@ -4,59 +4,74 @@ import { requestMoviDetails } from "../../services/api.js";
 import MovieCast from "../../components/MovieCast/MovieCast.jsx";
 import MovieReviews from "../../components/MovieReviews/MovieReviews.jsx";
 import css from "./MovieDetailsPage.module.css";
+import Loader from "../../components/Loader/Loader.jsx";
+import ErrorMessage from "../../components/ErrorMessage/ErrorMessage.jsx";
 
 const MovieDetailsPage = () => {
   const [film, setFilm] = useState(null);
   const { filmId } = useParams();
+  const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
 
   useEffect(() => {
     const getData = async () => {
-      const data = await requestMoviDetails(filmId);
-      setFilm(data);
+      try {
+        setIsLoading(true);
+        const data = await requestMoviDetails(filmId);
+        setFilm(data);
+      } catch {
+        setIsError(true);
+      } finally {
+        setIsLoading(false);
+      }
     };
     getData();
   }, [filmId]);
 
-  if (film === null) {
-    return <div>Loading...</div>;
-  }
-  const poster = `https://image.tmdb.org/t/p/w500/${film.poster_path}`;
-  const year = film.release_date.split("-")[0];
-  const popularity = Math.round((film.popularity / 1000) * 100);
   return (
-    <div className={css.div}>
-      <div>
-        <img src={`${poster}`} alt={film.original_title} />
-        <div>
-          <h2>
-            {film.original_title}({year})
-          </h2>
-          <p>User Score: {popularity}%</p>
-          <h3>Overwiew</h3>
-          <p>{film.overview}</p>
-          <h3>Genres</h3>
-          {film.genres.map((gen) => {
-            return <p key={gen.id}>{gen.name}</p>;
-          })}
-        </div>
-      </div>
-      <div>
-        <p>Additional information</p>
-        <ul>
-          <li>
-            <Link to="cast">Cast</Link>
-          </li>
-          <li>
-            <Link to="reviews">Reviews</Link>
-          </li>
-        </ul>
+    <>
+      {isError && <ErrorMessage />}
+      {isLoading && <Loader />}
+      {film && (
+        <div className={css.div}>
+          <div>
+            <img
+              src={`https://image.tmdb.org/t/p/w500/${film.poster_path}`}
+              alt={film.original_title}
+            />
+            <div>
+              <h2>
+                {film.original_title}(
+                {film.release_date && film.release_date.split("-")[0]})
+              </h2>
+              <p>User Score: {Math.round(film.popularity / 100)}%</p>
+              <h3>Overwiew</h3>
+              <p>{film.overview}</p>
+              <h3>Genres</h3>
+              {film.genres.map((gen) => {
+                return <p key={gen.id}>{gen.name}</p>;
+              })}
+            </div>
+          </div>
+          <div>
+            <p>Additional information</p>
+            <ul>
+              <li>
+                <Link to="cast">Cast</Link>
+              </li>
+              <li>
+                <Link to="reviews">Reviews</Link>
+              </li>
+            </ul>
 
-        <Routes>
-          <Route path="cast" element={<MovieCast />} />
-          <Route path="reviews" element={<MovieReviews />} />
-        </Routes>
-      </div>
-    </div>
+            <Routes>
+              <Route path="cast" element={<MovieCast />} />
+              <Route path="reviews" element={<MovieReviews />} />
+            </Routes>
+          </div>
+        </div>
+      )}
+    </>
   );
 };
 
