@@ -21,7 +21,7 @@ const MovieCast = () => {
   const profilePhotos = casts.cast.map(
     (cast) => `https://image.tmdb.org/t/p/w500/${cast.profile_path}`
   );
-  console.log(casts);
+
   return (
     <ul>
       {casts.cast.map((cast, index) => {

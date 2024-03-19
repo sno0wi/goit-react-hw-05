@@ -55,3 +55,17 @@ export const requestMovieCredits = async (id) => {
   const { data } = await axios.get(url, options);
   return data;
 };
+
+export const requestMovieReviews = async (id) => {
+  const url = `https://api.themoviedb.org/3/movie/${id}/reviews?language=en-US&page=1;`;
+
+  const options = {
+    headers: {
+      Authorization:
+        "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmOGNkMmM2MGQyYWVlZDhjOTZkYTIzYWQwYjFhZDM1NyIsInN1YiI6IjY1Zjk0ZTJjMTVhNGExMDEyYzBjOGVkZSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.GOjTDt21MJQG4tL1ay6-kyPYF3h1xIfj7SlkQuZk74k",
+    },
+  };
+
+  const { data } = await axios.get(url, options);
+  return data;
+};
