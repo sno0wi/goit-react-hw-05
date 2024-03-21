@@ -32,13 +32,12 @@ const MoviesPage = () => {
     getData();
   }, [searchQuery]);
 
-  const handleSubmit = (searchTerm, formActions) => {
+  const handleSubmit = (searchTerm) => {
     if (searchTerm.trim().length === 0) {
       alert("Please enter a search term first!");
       return;
     }
     setSearchParams({ query: searchTerm });
-    formActions.resetForm();
   };
 
   return (
