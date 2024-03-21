@@ -1,6 +1,6 @@
 import { requestTrendingMovies } from "../../services/api.js";
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Loader from "../../components/Loader/Loader.jsx";
 import ErrorMessage from "../../components/ErrorMessage/ErrorMessage.jsx";
 import css from "./HomePage.module.css";
@@ -9,6 +9,7 @@ const HomePage = () => {
   const [films, setFilms] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     const getData = async () => {
@@ -34,7 +35,9 @@ const HomePage = () => {
         <ul className={css.list}>
           {films.results.map((film) => (
             <li key={film.id}>
-              <Link to={`/movies/${film.id}`}>{film.original_title}</Link>
+              <Link to={`/movies/${film.id}`} state={location}>
+                {film.original_title}
+              </Link>
             </li>
           ))}
         </ul>

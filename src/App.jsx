@@ -9,6 +9,9 @@ const MoviesPage = lazy(() => import("./pages/MoviesPage/MoviesPage.jsx"));
 const MovieDetailsPage = lazy(() =>
   import("./pages/MovieDetailsPage/MovieDetailsPage.jsx")
 );
+const NotFoundPage = lazy(() =>
+  import("./pages/NotFoundPage/NotFoundPage.jsx")
+);
 
 function App() {
   return (
@@ -19,6 +22,7 @@ function App() {
             <Route path="/" element={<HomePage />} />
             <Route path="/movies" element={<MoviesPage />} />
             <Route path="/movies/:filmId/*" element={<MovieDetailsPage />} />
+            <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </Suspense>
       </Layout>

@@ -1,6 +1,6 @@
-import { Suspense, lazy } from "react";
+import { Suspense, lazy, useRef } from "react";
 import { useEffect, useState } from "react";
-import { Link, Route, Routes, useParams } from "react-router-dom";
+import { Link, Route, Routes, useParams, useLocation } from "react-router-dom";
 import { requestMoviDetails } from "../../services/api.js";
 import css from "./MovieDetailsPage.module.css";
 import Loader from "../../components/Loader/Loader.jsx";
@@ -18,6 +18,8 @@ const MovieDetailsPage = () => {
   const { filmId } = useParams();
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
+  const location = useLocation();
+  const backLinkRef = useRef(location.state ?? "/");
 
   useEffect(() => {
     const getData = async () => {
@@ -40,6 +42,10 @@ const MovieDetailsPage = () => {
       {isLoading && <Loader />}
       {film && (
         <div className={css.div}>
+          <button type="button">
+            <Link to={backLinkRef.current}>Go back</Link>
+          </button>
+
           <div>
             <img
               src={`https://image.tmdb.org/t/p/w500/${film.poster_path}`}
