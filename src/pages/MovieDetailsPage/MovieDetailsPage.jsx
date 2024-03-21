@@ -1,11 +1,17 @@
+import { Suspense, lazy } from "react";
 import { useEffect, useState } from "react";
 import { Link, Route, Routes, useParams } from "react-router-dom";
 import { requestMoviDetails } from "../../services/api.js";
-import MovieCast from "../../components/MovieCast/MovieCast.jsx";
-import MovieReviews from "../../components/MovieReviews/MovieReviews.jsx";
 import css from "./MovieDetailsPage.module.css";
 import Loader from "../../components/Loader/Loader.jsx";
 import ErrorMessage from "../../components/ErrorMessage/ErrorMessage.jsx";
+
+const MovieCast = lazy(() =>
+  import("../../components/MovieCast/MovieCast.jsx")
+);
+const MovieReviews = lazy(() =>
+  import("../../components/MovieReviews/MovieReviews.jsx")
+);
 
 const MovieDetailsPage = () => {
   const [film, setFilm] = useState(null);
@@ -63,11 +69,12 @@ const MovieDetailsPage = () => {
                 <Link to="reviews">Reviews</Link>
               </li>
             </ul>
-
-            <Routes>
-              <Route path="cast" element={<MovieCast />} />
-              <Route path="reviews" element={<MovieReviews />} />
-            </Routes>
+            <Suspense>
+              <Routes fallback={<Loader />}>
+                <Route path="cast" element={<MovieCast />} />
+                <Route path="reviews" element={<MovieReviews />} />
+              </Routes>
+            </Suspense>
           </div>
         </div>
       )}
