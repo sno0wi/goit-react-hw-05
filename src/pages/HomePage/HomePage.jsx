@@ -34,8 +34,12 @@ const HomePage = () => {
       {films !== null && (
         <ul className={css.list}>
           {films.results.map((film) => (
-            <li key={film.id}>
-              <Link to={`/movies/${film.id}`} state={location}>
+            <li key={film.id} className={css.item}>
+              <Link
+                to={`/movies/${film.id}`}
+                state={location}
+                className={css.link}
+              >
                 {film.original_title}
               </Link>
             </li>
