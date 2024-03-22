@@ -43,10 +43,12 @@ const MovieDetailsPage = () => {
       {film && (
         <div className={css.div}>
           <button type="button" className={css.bntGoBack}>
-            <Link to={backLinkRef.current}>Go back</Link>
+            <Link to={backLinkRef.current} className={css.refGoBack}>
+              Go back
+            </Link>
           </button>
 
-          <div>
+          <div className={css.resultsWrapp}>
             <img
               src={`https://image.tmdb.org/t/p/w500/${film.poster_path}`}
               alt={film.original_title}
@@ -66,9 +68,9 @@ const MovieDetailsPage = () => {
               })}
             </div>
           </div>
-          <div>
+          <div className={css.addInfo}>
             <p>Additional information</p>
-            <ul>
+            <ul className={css.addInfoList}>
               <li>
                 <Link to="cast">Cast</Link>
               </li>

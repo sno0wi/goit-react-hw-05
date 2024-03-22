@@ -4,7 +4,7 @@
     align-items: center;
     justify-content: center;
     gap: 8px;
-    margin-top: 50px;
+    margin: 50px 0;
 }
 
 .input {
@@ -28,6 +28,7 @@
     border: none;
     box-shadow: 0 0 40px 40px blue inset, 0 0 0 0 blue;
     transition: 50ms ease-in-out;
+    cursor: pointer;
 }
 
 .btn:hover {
@@ -35,10 +36,35 @@
     color: blue;
 }
 
-.btn:focus {
+.btn:active {
     transform: scale(1.2);
 }
 
-.btn:active {
-    transform: scale(1);
+.list {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 10px 10px;
+    gap: 20px;
+
+}
+
+
+.item {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    overflow-wrap: break-word;
+    width: 150px;
+    transition: transform 0.3s ease-in-out;
+
+}
+
+.item:hover .link {
+    transform: scale(1.2);
+}
+
+.link {
+    display: flex;
+    flex-direction: column;
 }
