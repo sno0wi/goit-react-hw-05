@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { requestSearchMovie } from "../../services/api.js";
 import { Formik, Field, Form } from "formik";
+import { Link, useSearchParams } from "react-router-dom";
 import Loader from "../../components/Loader/Loader.jsx";
 import ErrorMessage from "../../components/ErrorMessage/ErrorMessage.jsx";
-import { Link, useSearchParams } from "react-router-dom";
+import css from "./MoviesPage.module.css";
 
 const MoviesPage = () => {
   const [films, setFilms] = useState(null);
@@ -11,6 +12,11 @@ const MoviesPage = () => {
   const [isError, setIsError] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
   const searchQuery = searchParams.get("query");
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    inputRef.current.focus();
+  }, []);
 
   useEffect(() => {
     if (searchQuery === null) {
@@ -48,9 +54,20 @@ const MoviesPage = () => {
           handleSubmit(values.query);
         }}
       >
-        <Form>
-          <Field placeholder="Search" type="text" name="query" />
-          <button type="submit" title="Click to search" aria-label="Search">
+        <Form className={css.form}>
+          <Field
+            placeholder="Search"
+            type="text"
+            name="query"
+            className={css.input}
+            innerRef={inputRef}
+          />
+          <button
+            type="submit"
+            title="Click to search"
+            aria-label="Search"
+            className={css.btn}
+          >
             Search
           </button>
         </Form>

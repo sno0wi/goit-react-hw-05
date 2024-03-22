@@ -42,7 +42,7 @@ const MovieDetailsPage = () => {
       {isLoading && <Loader />}
       {film && (
         <div className={css.div}>
-          <button type="button">
+          <button type="button" className={css.bntGoBack}>
             <Link to={backLinkRef.current}>Go back</Link>
           </button>
 
@@ -50,8 +50,9 @@ const MovieDetailsPage = () => {
             <img
               src={`https://image.tmdb.org/t/p/w500/${film.poster_path}`}
               alt={film.original_title}
+              className={css.img}
             />
-            <div>
+            <div className={css.infoWrap}>
               <h2>
                 {film.original_title}(
                 {film.release_date && film.release_date.split("-")[0]})

@@ -40,7 +40,14 @@ const HomePage = () => {
                 state={location}
                 className={css.link}
               >
-                {film.original_title}
+                <div>
+                  <img
+                    src={`https://image.tmdb.org/t/p/w500/${film.poster_path}`}
+                    alt={film.original_title}
+                    width={125}
+                  />
+                  <p>{film.original_title}</p>
+                </div>
               </Link>
             </li>
           ))}

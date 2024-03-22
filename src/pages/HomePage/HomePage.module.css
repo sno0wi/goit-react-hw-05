@@ -9,9 +9,9 @@
 .item {
     display: flex;
     justify-content: center;
-    align-items: center;
-    border: 1px solid black;
-    border-radius: 8px;
+    align-items: flex-start;
+    overflow-wrap: break-word;
+    width: 150px;
 }
 
 .link {

@@ -1,3 +1,41 @@
 .div {
     color: black;
 }
+
+
+.bntGoBack {
+    text-decoration: none;
+    outline: none;
+    display: inline-block;
+    color: white;
+    font-weight: bold;
+    letter-spacing: 2px;
+    font-family: 'Montserrat', sans-serif;
+    padding: 16px 30px;
+    margin: 10px 20px;
+    border-radius: 10px;
+    border: none;
+    box-shadow: 0 0 40px 40px blue inset, 0 0 0 0 blue;
+    transition: 50ms ease-in-out;
+}
+
+.bntGoBack:hover {
+    box-shadow: 0 0 10px 0 blue inset, 0 0 10px 4px blue;
+    color: blue;
+}
+
+.bntGoBack:focus {
+    transform: scale(1.2);
+}
+
+.bntGoBack:active {
+    transform: scale(1);
+}
+
+.img {
+    height: 450px;
+}
+
+.infoWrap {
+    overflow-wrap: break-word;
+}

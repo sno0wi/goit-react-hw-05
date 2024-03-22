@@ -4,7 +4,8 @@ import clsx from "clsx";
 
 const getNavLinkClassNames = ({ isActive }) =>
   clsx(css.headerLink, {
-    active: isActive,
+    [css.active]: isActive,
+    [css.inactive]: !isActive,
   });
 
 const Layout = ({ children }) => {
