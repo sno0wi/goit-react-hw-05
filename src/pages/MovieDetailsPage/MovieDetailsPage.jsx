@@ -69,13 +69,17 @@ const MovieDetailsPage = () => {
             </div>
           </div>
           <div className={css.addInfo}>
-            <p>Additional information</p>
+            <p className={css.addInfoText}>Additional information</p>
             <ul className={css.addInfoList}>
-              <li>
-                <Link to="cast">Cast</Link>
+              <li className={css.addInfoItem}>
+                <Link className={css.addInfoLink} to="cast">
+                  Cast
+                </Link>
               </li>
-              <li>
-                <Link to="reviews">Reviews</Link>
+              <li className={css.addInfoItem}>
+                <Link className={css.addInfoLink} to="reviews">
+                  Reviews
+                </Link>
               </li>
             </ul>
             <Suspense>

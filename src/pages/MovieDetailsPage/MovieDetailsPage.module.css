@@ -1,6 +1,6 @@
 .div {
     color: black;
-
+    margin-bottom: 25px;
 }
 
 .bntGoBack {
@@ -60,5 +60,26 @@
 .addInfoList {
     display: flex;
     flex-direction: row;
+    gap: 15px;
     padding: 0;
+}
+
+.addInfoItem {
+    border: 1px solid black;
+    border-radius: 8px;
+    transition: background-color 0.5s ease;
+}
+
+.addInfoItem:hover {
+    background-color: aqua;
+    border-color: white;
+}
+
+.addInfoText {
+    font-size: 22px;
+    font-weight: 500;
+}
+
+.addInfoLink {
+    padding: 0 20px;
 }
