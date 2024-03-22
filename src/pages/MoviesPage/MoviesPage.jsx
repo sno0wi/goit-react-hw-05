@@ -48,12 +48,7 @@ const MoviesPage = () => {
       });
       return;
     }
-    if (films === null) {
-      iziToast.error({
-        message: "Sorry, but there was no movie found on your request.",
-      });
-      return;
-    }
+
     setSearchParams({ query: searchTerm });
   };
 
