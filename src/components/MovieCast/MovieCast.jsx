@@ -8,13 +8,13 @@ const MovieCast = () => {
   const [casts, setCast] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
-  const { filmId } = useParams();
+  const { movieId } = useParams();
 
   useEffect(() => {
     const getData = async () => {
       try {
         setIsLoading(true);
-        const data = await requestMovieCredits(filmId);
+        const data = await requestMovieCredits(movieId);
         setCast(data);
       } catch {
         setIsError(true);
@@ -23,7 +23,7 @@ const MovieCast = () => {
       }
     };
     getData();
-  }, [filmId]);
+  }, [movieId]);
 
   return (
     <>
