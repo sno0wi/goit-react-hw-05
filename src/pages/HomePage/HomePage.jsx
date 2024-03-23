@@ -5,7 +5,7 @@ import ErrorMessage from "../../components/ErrorMessage/ErrorMessage.jsx";
 import MovieList from "../../components/MovieList/MovieList.jsx";
 
 const HomePage = () => {
-  const [films, setFilms] = useState(null);
+  const [TrendMovies, setTrendMovies] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
 
@@ -14,7 +14,7 @@ const HomePage = () => {
       try {
         setIsLoading(true);
         const data = await requestTrendingMovies();
-        setFilms(data);
+        setTrendMovies(data);
       } catch {
         setIsError(true);
       } finally {
@@ -29,7 +29,7 @@ const HomePage = () => {
     <>
       {isError && <ErrorMessage />}
       {isLoading && <Loader />}
-      <MovieList films={films} />
+      {TrendMovies !== null && <MovieList movies={TrendMovies} />}
     </>
   );
 };

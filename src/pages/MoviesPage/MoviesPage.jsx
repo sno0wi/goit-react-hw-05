@@ -1,15 +1,16 @@
 import { useEffect, useState, useRef } from "react";
 import { requestSearchMovie } from "../../services/api.js";
 import { Formik, Field, Form } from "formik";
-import { Link, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import Loader from "../../components/Loader/Loader.jsx";
 import ErrorMessage from "../../components/ErrorMessage/ErrorMessage.jsx";
 import css from "./MoviesPage.module.css";
 import iziToast from "izitoast";
 import "izitoast/dist/css/iziToast.min.css";
+import MovieList from "../../components/MovieList/MovieList.jsx";
 
 const MoviesPage = () => {
-  const [films, setFilms] = useState(null);
+  const [foundFilms, setFoundFilms] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
@@ -29,7 +30,7 @@ const MoviesPage = () => {
       try {
         setIsLoading(true);
         const data = await requestSearchMovie(searchQuery);
-        setFilms(data);
+        setFoundFilms(data);
       } catch {
         setIsError(true);
       } finally {
@@ -80,25 +81,7 @@ const MoviesPage = () => {
       </Formik>
       {isError && <ErrorMessage />}
       {isLoading && <Loader />}
-      {films && (
-        <ul className={css.list}>
-          {films.results.map((film) => (
-            <li key={film.id} className={css.item}>
-              <Link to={`/movies/${film.id}`} className={css.link}>
-                <div>
-                  <img
-                    src={`https://image.tmdb.org/t/p/w500/${film.poster_path}`}
-                    alt={film.original_title}
-                    width={125}
-                    className={css.img}
-                  />
-                  <p>{film.original_title}</p>
-                </div>
-              </Link>
-            </li>
-          ))}
-        </ul>
-      )}
+      {foundFilms !== null && <MovieList movies={foundFilms} />}
     </>
   );
 };

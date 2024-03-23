@@ -39,32 +39,3 @@
 .btn:active {
     transform: scale(1.2);
 }
-
-.list {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    padding: 10px 10px;
-    gap: 20px;
-
-}
-
-
-.item {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    overflow-wrap: break-word;
-    width: 150px;
-    transition: transform 0.3s ease-in-out;
-
-}
-
-.item:hover .link {
-    transform: scale(1.2);
-}
-
-.link {
-    display: flex;
-    flex-direction: column;
-}
