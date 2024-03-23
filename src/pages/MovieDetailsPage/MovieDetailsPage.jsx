@@ -22,7 +22,7 @@ const MovieReviews = lazy(() =>
 
 const MovieDetailsPage = () => {
   const [film, setFilm] = useState(null);
-  const { filmId } = useParams();
+  const { movieId } = useParams();
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
   const location = useLocation();
@@ -32,7 +32,7 @@ const MovieDetailsPage = () => {
     const getData = async () => {
       try {
         setIsLoading(true);
-        const data = await requestMoviDetails(filmId);
+        const data = await requestMoviDetails(movieId);
         setFilm(data);
       } catch {
         setIsError(true);
@@ -41,7 +41,7 @@ const MovieDetailsPage = () => {
       }
     };
     getData();
-  }, [filmId]);
+  }, [movieId]);
 
   return (
     <>
