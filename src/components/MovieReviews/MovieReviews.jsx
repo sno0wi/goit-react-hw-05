@@ -8,13 +8,13 @@ const MovieReviews = () => {
   const [rewiews, setRewiews] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
-  const { filmId } = useParams();
+  const { movieId } = useParams();
 
   useEffect(() => {
     const getData = async () => {
       try {
         setIsLoading(true);
-        const data = await requestMovieReviews(filmId);
+        const data = await requestMovieReviews(movieId);
         setRewiews(data);
       } catch {
         setIsError(true);
@@ -23,7 +23,7 @@ const MovieReviews = () => {
       }
     };
     getData();
-  }, [filmId]);
+  }, [movieId]);
 
   return (
     <>
