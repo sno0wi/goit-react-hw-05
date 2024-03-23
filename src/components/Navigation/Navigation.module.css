@@ -1,0 +1,10 @@
+.headerLink {
+    font-size: 22px;
+    transition: transform 0.3s ease;
+    font-weight: 500;
+}
+
+.active {
+    transform: scale(1.2);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
