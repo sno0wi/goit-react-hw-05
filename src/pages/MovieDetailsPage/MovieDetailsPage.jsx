@@ -1,6 +1,13 @@
 import { Suspense, lazy, useRef } from "react";
 import { useEffect, useState } from "react";
-import { Link, Route, Routes, useParams, useLocation } from "react-router-dom";
+import {
+  Link,
+  Route,
+  Routes,
+  useParams,
+  useLocation,
+  Outlet,
+} from "react-router-dom";
 import { requestMoviDetails } from "../../services/api.js";
 import css from "./MovieDetailsPage.module.css";
 import Loader from "../../components/Loader/Loader.jsx";
@@ -19,7 +26,7 @@ const MovieDetailsPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
   const location = useLocation();
-  const backLinkRef = useRef(location.state ?? "/");
+  const backLinkRef = useRef(location.state);
 
   useEffect(() => {
     const getData = async () => {
@@ -82,11 +89,12 @@ const MovieDetailsPage = () => {
                 </Link>
               </li>
             </ul>
-            <Suspense>
-              <Routes fallback={<Loader />}>
+            <Suspense fallback={<Loader />}>
+              <Routes>
                 <Route path="cast" element={<MovieCast />} />
                 <Route path="reviews" element={<MovieReviews />} />
               </Routes>
+              <Outlet />
             </Suspense>
           </div>
         </div>
